@@ -110,6 +110,21 @@ Callback on success
 Callback on error
 
 
+## Reducer create helper
+Standart wrapper for create reducers.
+I use it on some projects , for this reason, he added to the package
+
+```javascript
+import { createReducer } 'redux-sync-promise';
+
+export default createReducer(initialState, {
+  [PEOPLE_SUCCESS](state, action) {
+     return {...state}
+  }
+}
+```
+
+
 ## License
 
 Copyright © 2016 [Alexander Dukhovnyak](https://github.com/shanhaichik)
