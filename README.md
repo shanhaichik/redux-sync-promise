@@ -1,7 +1,7 @@
 # redux-sync-promise
 
 [![Build Status](https://travis-ci.org/shanhaichik/redux-sync-promise.svg?branch=master)](https://travis-ci.org/shanhaichik/redux-sync-promise)
-[![NPM version][http://img.shields.io/npm/v/redux-sync-promise.svg]][https://npmjs.org/package/redux-sync-promise] [![Downloads][http://img.shields.io/npm/dm/redux-sync-promise.svg]][https://npmjs.org/package/redux-sync-promise] [![Dependency status][david-dm-image]][david-dm-url]
+[![NPM version](http://img.shields.io/npm/v/redux-sync-promise.svg)](https://npmjs.org/package/redux-sync-promise) [![Downloads](http://img.shields.io/npm/dm/redux-sync-promise.svg)](https://npmjs.org/package/redux-sync-promise)
 [![Coverage Status](https://coveralls.io/repos/github/shanhaichik/redux-sync-promise/badge.svg?branch=master)](https://coveralls.io/github/shanhaichik/redux-sync-promise?branch=master)
 
 > Middleware for writing asynchronous actions in synchronous style
