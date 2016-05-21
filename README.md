@@ -1,8 +1,8 @@
 # redux-sync-promise
 
-[![Build Status][travis-image]][travis-url]
-[![npm][npm-image]][npm-url]
-[![Codecov.io][codecov-image]][codecov-url]
+[![Build Status][travis-image]][travis-url]]
+[![npm][npm-image]][npm-url]]
+[![Codecov.io][codecov-image]][codecov-url]]
 
 > Middleware for writing asynchronous actions in synchronous style
 

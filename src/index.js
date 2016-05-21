@@ -1,7 +1,7 @@
-import APISync from './reduxMiddleware';
-import createReducer from './reduxCreateReducer';
+import {APISync} from './reduxMiddleware';
+import {createReducer} from './reduxCreateReducer';
 
-export default {
+export {
   APISync,
   createReducer,
 };
