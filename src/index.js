@@ -1,5 +1,5 @@
-import {APISync} from './reduxMiddleware';
-import {createReducer} from './reduxCreateReducer';
+import { APISync } from './reduxMiddleware';
+import { createReducer } from './reduxCreateReducer';
 
 export {
   APISync,

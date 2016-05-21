@@ -1,6 +1,6 @@
 # redux-sync-promise
 
-[![Build Status][travis-image]][travis-url]]
+[![Build Status](https://travis-ci.org/shanhaichik/redux-sync-promise.svg?branch=master)](https://travis-ci.org/shanhaichik/redux-sync-promise)
 [![npm][npm-image]][npm-url]]
 [![Codecov.io][codecov-image]][codecov-url]]
 
