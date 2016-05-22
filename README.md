@@ -102,13 +102,35 @@ Add your custom action type postfix for API call.
 
 ## onPending
 Callback when actions in progress
+```javascript
+/*
+ * @param {function} dispatch - action dispatch function
+ * @param {object} data -  an array of props in the data key in the action
+ */
+onPending = (dispatch, data) => {}
+```
 
 ## onSuccess
 Callback on success
+```javascript
+/*
+ * @param {function} dispatch - action dispatch function
+ * @param {object} result - total result object
+ * @param {object} data -  an array of props in the data key in the action
+ */
+onSuccess = (dispatch, result, data) => {}
+```
 
 ## onError 
 Callback on error
-
+```javascript
+/*
+ * @param {function} dispatch - action dispatch function
+ * @param {object|string} error - total error 
+ * @param {object} data -  an array of props in the data key in the action
+ */
+onError = (dispatch, error, data) => {}
+```
 
 ## Reducer create helper
 Standart wrapper for create reducers.
