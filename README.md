@@ -46,7 +46,7 @@ export function getPeopleList(contry, age) {
  * */
 async function getPeopleName(state, dispatch, props) {
   let {people: {entriesOnPage}} = state;
-  let _requestString = `investors/?rows=${entriesOnPage}`;
+  let _requestString = `people/?rows=${entriesOnPage}`;
 
   const {data: {people, total}} = await fetch(_requestString);
   return {people, total};
@@ -137,13 +137,13 @@ Standart wrapper for create reducers.
 I use it on some projects , for this reason, he added to the package
 
 ```javascript
-import { createReducer } 'redux-sync-promise';
+import { createReducer } from 'redux-sync-promise';
 
 export default createReducer(initialState, {
   [PEOPLE_SUCCESS](state, action) {
      return {...state}
   }
-}
+})
 ```
 
 
