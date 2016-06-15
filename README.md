@@ -54,8 +54,25 @@ async function getPeopleName(state, dispatch, props) {
 // and so on ...
 
 /*
- * Simple example
+ * Simple examples
  * */
+ export function getUnicornList(data1, data2) {
+   return {
+     types: 'UNICORN',
+     list: Promise.all([
+      request.post('food/', data1),
+      request.post('rainbow/',data2)
+    ])
+   }
+ }
+
+ export function getUnicornList(data) {
+   return {
+     types: 'UNICORN',
+     list: request.post('food/', data)
+   }
+ }
+
 export function getUnicornList() {
   return {
     types: 'UNICORN',
@@ -121,12 +138,12 @@ Callback on success
 onSuccess = (dispatch, result, data) => {}
 ```
 
-## onError 
+## onError
 Callback on error
 ```javascript
 /*
  * @param {function} dispatch - action dispatch function
- * @param {object|string} error - total error 
+ * @param {object|string} error - total error
  * @param {object} data -  an array of props in the data key in the action
  */
 onError = (dispatch, error, data) => {}

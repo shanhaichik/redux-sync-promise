@@ -3,7 +3,8 @@
   "parser": "babel-eslint",
   "env": {
     "mocha": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "globals": {
     "expect": true
@@ -14,6 +15,8 @@
     "no-unused-expressions": 0,
     "prefer-const": 0,
     "no-param-reassign": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "max-len": [2, {"code": 120}],
+    "no-confusing-arrow": 0
   }
 }
