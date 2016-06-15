@@ -5,7 +5,8 @@ function isPromise(obj) {
 const resolveProps = (obj, state, dispatch, params = {}) => {
   const props = Object.keys(obj);
 
-  return Promise.all(props.map(prop => isPromise(obj[prop]) ? obj[prop] : obj[prop](state, dispatch, params))).then(resolvedArray => {
+  return Promise.all(props.map(prop => isPromise(obj[prop]) ? obj[prop] : obj[prop](state, dispatch, params)))
+  .then(resolvedArray => {
     return props.reduce((prev, prop, index) => {
       prev[prop] = resolvedArray[index];
       return prev;
