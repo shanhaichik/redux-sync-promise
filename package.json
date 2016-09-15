@@ -1,6 +1,6 @@
 {
   "name": "redux-sync-promise",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Writing asynchronous actions in synchronous style",
   "main": "lib/index.js",
   "scripts": {
