@@ -31,7 +31,7 @@ export function APISync(params) {
     let failureType = failure ? `${types}_${failure}` : `${types}_FAILURE`;
 
     let pendingAction = { type: pendingType, meta: data };
-    let successAction = { type: successType };
+    let successAction = { type: successType, meta: data };
     let failureAction = { type: failureType, meta: data };
 
     next(pendingAction);
@@ -48,7 +48,7 @@ export function APISync(params) {
         }
       },
       error => {
-        next({ ...failureAction, error: error.data.errors || error.data });
+        next({ ...failureAction, error: error });
         if (onError && typeof onError === 'function') {
           onError(dispatch, error, data);
         }
