@@ -48,7 +48,7 @@ export function APISync(params) {
         }
       },
       error => {
-        next({ ...failureAction, error: error });
+        next({ ...failureAction, error });
         if (onError && typeof onError === 'function') {
           onError(dispatch, error, data);
         }
