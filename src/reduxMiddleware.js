@@ -30,10 +30,10 @@ export function APISync(params) {
       return next(action);
     }
 
-    const { data, types, ...actions } = action;
+    const { data, types, off: actionOff, ...actions } = action;
     const state = getState();
 
-    const o = Object.assign({}, defaultOff, off, action.off);
+    const o = Object.assign({}, defaultOff, off, actionOff);
 
     const pendingType = pending ? `${types}_${pending}` : `${types}_PENDING`;
     const successType = success ? `${types}_${success}` : `${types}_SUCCESS`;
