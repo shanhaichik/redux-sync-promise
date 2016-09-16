@@ -14,43 +14,57 @@ const resolveProps = (obj, state, dispatch, params = {}) => {
   });
 };
 
+const defaultOff = {
+  pending: false,
+  success: false,
+  failure: false,
+};
+
 export function APISync(params) {
   const { pending, success, failure } = params.postfix || {};
-  const { onPending, onSuccess, onError } = params || {};
+  const { onPending, onSuccess, onError, off } = params || {};
+
   return ({ getState, dispatch }) => next => action => {
 
     if (!action.types) {
       return next(action);
     }
 
-    let { data, types, ...actions } = action;
-    let state = getState();
+    const { data, types, ...actions } = action;
+    const state = getState();
 
-    let pendingType = pending ? `${types}_${pending}` : `${types}_PENDING`;
-    let successType = success ? `${types}_${success}` : `${types}_SUCCESS`;
-    let failureType = failure ? `${types}_${failure}` : `${types}_FAILURE`;
+    const o = Object.assign({}, defaultOff, off, action.off);
 
-    let pendingAction = { type: pendingType, meta: data };
-    let successAction = { type: successType, meta: data };
-    let failureAction = { type: failureType, meta: data };
+    const pendingType = pending ? `${types}_${pending}` : `${types}_PENDING`;
+    const successType = success ? `${types}_${success}` : `${types}_SUCCESS`;
+    const failureType = failure ? `${types}_${failure}` : `${types}_FAILURE`;
 
-    next(pendingAction);
+    const pendingAction = { type: pendingType, meta: data };
+    const successAction = { type: successType, meta: data };
+    const failureAction = { type: failureType, meta: data };
 
-    if (onPending && typeof onPending === 'function') {
-      onPending(dispatch, data);
+    if (o.pending) {
+      next(pendingAction);
+      if (onPending && typeof onPending === 'function') {
+        onPending(dispatch, data);
+      }
     }
 
     return resolveProps(actions, state, dispatch, data).then(
       results => {
-        next({ ...successAction, ...results });
-        if (onSuccess && typeof onSuccess === 'function') {
-          onSuccess(dispatch, results, data);
+        if (o.success) {
+          next({ ...successAction, ...results });
+          if (onSuccess && typeof onSuccess === 'function') {
+            onSuccess(dispatch, results, data);
+          }
         }
       },
       error => {
-        next({ ...failureAction, error });
-        if (onError && typeof onError === 'function') {
-          onError(dispatch, error, data);
+        if (o.failure) {
+          next({ ...failureAction, error });
+          if (onError && typeof onError === 'function') {
+            onError(dispatch, error, data);
+          }
         }
       }
     );

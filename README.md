@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/shanhaichik/redux-sync-promise.svg?branch=master)](https://travis-ci.org/shanhaichik/redux-sync-promise)
 [![NPM version](http://img.shields.io/npm/v/redux-sync-promise.svg)](https://npmjs.org/package/redux-sync-promise) [![Downloads](http://img.shields.io/npm/dm/redux-sync-promise.svg)](https://npmjs.org/package/redux-sync-promise)
-[![Coverage Status](https://coveralls.io/repos/github/shanhaichik/redux-sync-promise/badge.svg?branch=master)](https://coveralls.io/github/shanhaichik/redux-sync-promise?branch=master)
 
 > Middleware for writing asynchronous actions in synchronous style
 
@@ -28,10 +27,15 @@ Every action will dispatch type name from types plus postfix.
 /*
  * Full example
  * */
-export function getPeopleList(contry, age) {
+export function getPeopleList(country, age) {
   return {
     types: 'PEOPLE',
-    data: [contry, age], // this data will add in all functions like arguments
+    // this data will add in all functions like arguments
+    data: {country, age},
+    // disable dispatch PENDING event in this action
+    off: {
+      pending: true
+    },
     name: getPeopleName,
     work: getPeopleWork
     food: getPeopleFood
@@ -42,13 +46,13 @@ export function getPeopleList(contry, age) {
  * Get people info
  * @param {object} state - store state
  * @param {function} dispatch - action dispatch function
- * @param {array} props - an array of props in the data key in the action
+ * @param {array} props - props in the data key in the action
  * */
 async function getPeopleName(state, dispatch, props) {
   let {people: {entriesOnPage}} = state;
-  let _requestString = `people/?rows=${entriesOnPage}`;
+  let requestString = `people/?rows=${entriesOnPage}`;
 
-  const {data: {people, total}} = await fetch(_requestString);
+  const {data: {people, total}} = await fetch(requestString);
   return {people, total};
 }
 // and so on ...
@@ -56,6 +60,46 @@ async function getPeopleName(state, dispatch, props) {
 /*
  * Simple examples
  * */
+ export function getUnicornList(data) {
+   return {
+     types: 'UNICORN',
+     list: request.post('food/', data)
+   }
+ }
+
+ export function getUnicornList(data) {
+   return {
+     types: 'UNICORN',
+     list: request.post('list/', data),
+     food: request.post('food/', data),
+   }
+ }
+
+ export function getUnicornList() {
+   return {
+     types: 'UNICORN',
+     list: async (state, dispatch, props) => {
+       let rainbow = await getRainbow();
+       return rainbow.data.colors
+     }
+   }
+ }
+
+ export function getUnicornList(data) {
+   return {
+     types: 'UNICORN',
+     data: {...data},
+     list: async (state, dispatch, props) => {
+       let rainbow = await getRainbow();
+       return rainbow.data.colors
+     },
+     food: async (state, dispatch, props) => {
+       let rainbow = await getFood();
+       return rainbow.data.colors
+     }
+   }
+ }
+
  export function getUnicornList(data1, data2) {
    return {
      types: 'UNICORN',
@@ -66,23 +110,6 @@ async function getPeopleName(state, dispatch, props) {
    }
  }
 
- export function getUnicornList(data) {
-   return {
-     types: 'UNICORN',
-     list: request.post('food/', data)
-   }
- }
-
-export function getUnicornList() {
-  return {
-    types: 'UNICORN',
-    list: async (state, dispatch, props) => {
-      let rainbow = await getRainbow();
-      return rainbow.data.colors
-    }
-  }
-}
-// This example will dispatch UNICORN_PENDING, UNICORN_SUCCESS or UNICORN_FAILURE
 ```
 
 
@@ -98,8 +125,14 @@ APISync({
 		success: 'IS_SUCCESS'
 		failure: 'IS_FAILURE'
 	},
+  // global enable/disable dispatching event
+  off: {
+    pending: false,
+    success: false,
+    failure: false,
+  }
 	onPending: (dispatch, data) => {
-		console.log('some action api panding');
+		console.log('some action api pending');
 	},
 	onSuccess: (dispatch, result, data) => {
 		console.log('some action api success');
@@ -147,6 +180,16 @@ Callback on error
  * @param {object} data -  an array of props in the data key in the action
  */
 onError = (dispatch, error, data) => {}
+```
+
+## off
+Global disable dispatching SUCCESS, PENDING or FAULURE event
+```javascript
+off: {
+  pending: false,
+  success: false,
+  failure: false,
+}
 ```
 
 ## Reducer create helper
