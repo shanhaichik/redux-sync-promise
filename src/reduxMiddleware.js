@@ -15,9 +15,9 @@ const resolveProps = (obj, state, dispatch, params = {}) => {
 };
 
 const defaultOff = {
-  pending: false,
-  success: false,
-  failure: false,
+  pending: true,
+  success: true,
+  failure: true,
 };
 
 export function APISync(params) {
